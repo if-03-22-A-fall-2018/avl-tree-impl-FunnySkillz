@@ -20,13 +20,13 @@ void 	unbalanced_insert (Node root, int key){
 
 Node insert(Node node, int key){
     if (node == 0){
-        //TODO
+        node = create_node(key);
     }
 
     if (key < get_key(node)){
         set_left(node, insert(get_left(node), key));
     } else if (key > get_key(node)){
-        //TODO
+        set_right(node, insert(get_right(node), key));
     } else {
         // no duplicate keys
         return node;
@@ -43,6 +43,7 @@ Node insert(Node node, int key){
     if (balance < -1 && key > get_key(get_right(node))){
         // RR
 		//TODO
+     printf("Inserting %d, applying rotate right on %d\n", key, get_key(node));
     }
     if (balance > 1 && key > get_key(get_left(node))){
         // LR
@@ -52,6 +53,8 @@ Node insert(Node node, int key){
     if (balance < -1 && key < get_key(get_right(node))){
         // RL
         //TODO
+        set_right(node, rotate_right(get_right(node)));
+        return rotate_left(node);
     }
     // balanced
     return node;
