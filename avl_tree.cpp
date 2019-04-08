@@ -2,7 +2,8 @@
 #include "avl_tree.h"
 
 int 	max (int n1, int n2){
-return 0;
+  if(n1<n2){return n2;}
+  return n1;
 }
 Node 	rotate_right (Node node){
 return 0;
@@ -11,12 +12,17 @@ int 	get_balance (Node node){
 return 0;
 }
 void 	print_postorder (Node node){
-
+  if(node==0) {return;}
+  print_postorder(node->left);
+  print_postorder(node->right);
+  printf("%d, ", node->key);
 }
-void 	unbalanced_insert (Node root, int key){
-
+Node	unbalanced_insert (Node root, int key){
+  if (root == 0) {return root = create_node(key);}
+  else if(key < root->key){root->left =  unbalanced_insert(root->left, key);}
+  else if(key > root->key){root->right = unbalanced_insert(root->right, key);}
+  return root;
 }
-
 
 Node insert(Node node, int key){
     if (node == 0){

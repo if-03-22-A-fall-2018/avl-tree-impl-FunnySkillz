@@ -1,7 +1,14 @@
 #ifndef BALANCEDTREE_NODE_H
 #define BALANCEDTREE_NODE_H
 
-typedef struct node * 	Node;
+typedef struct NodeImplementation* 	Node;
+struct NodeImplementation
+{
+  Node left;
+  Node right;
+  int key;
+  int height;
+};
 
 int 	get_key (Node node);
 Node 	get_left (Node node);
