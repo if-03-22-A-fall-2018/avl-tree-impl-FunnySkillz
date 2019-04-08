@@ -1,6 +1,23 @@
 #include <stdio.h>
 #include "avl_tree.h"
 
+int 	max (int n1, int n2){
+return 0;
+}
+Node 	rotate_right (Node node){
+return 0;
+}
+int 	get_balance (Node node){
+return 0;
+}
+void 	print_postorder (Node node){
+
+}
+void 	unbalanced_insert (Node root, int key){
+
+}
+
+
 Node insert(Node node, int key){
     if (node == 0){
         //TODO
