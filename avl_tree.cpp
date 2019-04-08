@@ -1,23 +1,55 @@
 #include <stdio.h>
 #include "avl_tree.h"
 
-int 	max (int n1, int n2){
+int max (int n1, int n2){
   if(n1<n2){return n2;}
   return n1;
 }
-Node 	rotate_right (Node node){
-return 0;
+
+Node rotate_right (Node node){
+  if (node == 0)return 0;
+
+  Node l = get_left(node);
+  Node r = get_right(l);
+
+  set_right(l, node);
+  set_left(node, r);
+
+  set_height(node, max(get_height(get_left(node)), get_height(get_right(node))) + 1);
+  set_height(r, max(get_height(get_left(r)), get_height(get_right(r))) + 1);
+
+  return l;
 }
-int 	get_balance (Node node){
-return 0;
+/* Compute the "maxDepth" of a tree -- the number of
+    nodes along the longest path from the root node
+    down to the farthest leaf node.*/
+int maxDepth(Node node){
+  if (node == 0)
+      return 0;
+  else
+  {
+      /* compute the depth of each subtree */
+      int lDepth = maxDepth(node->left);
+      int rDepth = maxDepth(node->right);
+
+      /* use the larger one */
+      if (lDepth > rDepth)return(lDepth + 1);
+      else return(rDepth + 1);
+  }
 }
+int get_balance (Node node){
+  if(node->left==0 || node->right) return 0;
+  return (maxDepth(node->left) + 1 - maxDepth(node->right));
+}
+
 void 	print_postorder (Node node){
   if(node==0) {return;}
   print_postorder(node->left);
   print_postorder(node->right);
   printf("%d, ", node->key);
 }
-Node	unbalanced_insert (Node root, int key){
+
+Node unbalanced_insert (Node root, int key){
   if (root == 0) {return root = create_node(key);}
   else if(key < root->key){root->left =  unbalanced_insert(root->left, key);}
   else if(key > root->key){root->right = unbalanced_insert(root->right, key);}
